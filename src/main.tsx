@@ -10,6 +10,7 @@ import {
   ThemeProvider as MuiThemeProvider,
   createTheme,
 } from '@mui/material/styles';
+import './services/i18n/i18n';
 
 const lightTheme = createTheme({
   palette: {
