@@ -5,12 +5,13 @@ import './index.css';
 import {
   ThemeProvider as CustomThemeProvider,
   ThemeContext,
-} from './ThemeContext';
+} from './services/ThemeContext';
 import {
   ThemeProvider as MuiThemeProvider,
   createTheme,
 } from '@mui/material/styles';
 import './services/i18n/i18n';
+import { Auth0Provider } from '@auth0/auth0-react';
 
 const lightTheme = createTheme({
   palette: {
@@ -26,14 +27,24 @@ const darkTheme = createTheme({
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <CustomThemeProvider>
-      <ThemeContext.Consumer>
-        {({ theme }) => (
-          <MuiThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-            <App />
-          </MuiThemeProvider>
-        )}
-      </ThemeContext.Consumer>
-    </CustomThemeProvider>
+    <Auth0Provider
+      domain={import.meta.env.VITE_AUTH0_DOMAIN}
+      clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
+    >
+      <CustomThemeProvider>
+        <ThemeContext.Consumer>
+          {({ theme }) => (
+            <MuiThemeProvider
+              theme={theme === 'light' ? lightTheme : darkTheme}
+            >
+              <App />
+            </MuiThemeProvider>
+          )}
+        </ThemeContext.Consumer>
+      </CustomThemeProvider>
+    </Auth0Provider>
   </React.StrictMode>
 );

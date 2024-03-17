@@ -1,3 +1,13 @@
 {
-  "text": "Hello"
+  "button": {
+    "login": "Login",
+    "logout": "Logout",
+    "signUp": "Sign Up"
+  },
+  "common": {
+    "logout": "Logout",
+    "login": "Login",
+    "signUp": "Sign Up",
+    "profile": "Profile"
+  }
 }
